@@ -143,36 +143,6 @@ int main() {
 		result += minTimer;
 	}
 
-	/*while (pending != NULL) {
-		Node *n = pending->node;
-		pending = pending->next;
-
-		result[len++] = n->id;
-		completed[n->id - 'A'] = 1;
-
-		NodeList *succList = n->next;
-		while (succList != NULL) {
-			Node *succ = succList->node;
-			
-			int eligible = 1;
-			NodeList *succPredList = succ->prev;
-			while (succPredList != NULL) {
-				int iSuccPred = succPredList->node->id - 'A';
-				if (!completed[iSuccPred]) {
-					eligible = 0;
-					break;
-				}
-				succPredList = succPredList->next;
-			}
-			if (eligible) {
-				insertNodeList(&pending, succ);
-			}
-
-			succList = succList->next;
-		}
-
-	}*/
-
 	printf("Result: %d\n", result);
 
 	return 0;

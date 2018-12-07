@@ -73,7 +73,6 @@ int main() {
 
 	for (int i = 0; i < LEN; i++) {
 		if (nodes[i]->prev == NULL) {
-			//printf("%c\n", nodes[i]->id);
 			insertNodeList(&pending, nodes[i]);
 		}
 	}
