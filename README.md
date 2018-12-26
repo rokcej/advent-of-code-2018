@@ -1,5 +1,5 @@
 # Advent of Code 2018
-My solutions for [Advent of Code 2018](https://adventofcode.com/2018).  
+My solutions for [Advent of Code 2018](https://adventofcode.com/2018) written in C.  
 
 ## Progress
 | Day | Part 1 | Part 2 |
@@ -26,11 +26,11 @@ My solutions for [Advent of Code 2018](https://adventofcode.com/2018).
 |  20 |    ⭐   |    ⭐   |
 |  21 |    ⭐   |    ⭐   |
 |  22 |    ⭐   |    ⭐   |
-|  23 |        |        |
+|  23 |    ⭐   |    ⭐   |
 |  24 |    ⭐   |    ⭐   |
-|  25 |        |        |
+|  25 |    ⭐   |    ⭐   |
 
-## C solutions
+## Compiling and running solutions
 * Compile solutions with:
 	```bash
 	gcc part1.c -o part1
