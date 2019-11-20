@@ -1,5 +1,5 @@
-# Advent of Code
-My solutions for [Advent of Code](https://adventofcode.com/).  
+# Advent of Code 🎄
+My solutions for [Advent of Code](https://adventofcode.com/). Merry Christmas!
 
 ## Progress
 | Day | 2018 | 2019 |
@@ -32,11 +32,12 @@ My solutions for [Advent of Code](https://adventofcode.com/).
 
 ## 2019
 
-TBD
+Coming soon...
 
 ## 2018
 
-Solutions written in C.
+I decided to use C for this one. Having to write data structures from scratch was quite a pain, so I doubt I'll be using it for Advent of Code again.
+Nevertheless, I enjoyed the puzzles a lot. I was studying abroad back then and wasn't having the best time, so this gave me something to look forward to every day, and a new way of celebrating my favourite holiday.
 
 * Compile solutions with:
 	```bash
