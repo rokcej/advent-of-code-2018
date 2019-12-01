@@ -4,7 +4,7 @@ My solutions for [Advent of Code](https://adventofcode.com/). Merry Christmas!
 ## Progress
 | Day | 2018 | 2019 |
 |:---:|:----:|:----:|
-| 1   |  ⭐⭐  |      |
+| 1   |  ⭐⭐  |  ⭐⭐  |
 | 2   |  ⭐⭐  |      |
 | 3   |  ⭐⭐  |      |
 | 4   |  ⭐⭐  |      |
