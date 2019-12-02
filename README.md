@@ -5,7 +5,7 @@ My solutions for [Advent of Code](https://adventofcode.com/). Merry Christmas!
 | Day | 2018 | 2019 |
 |:---:|:----:|:----:|
 | 1   |  ⭐⭐  |  ⭐⭐  |
-| 2   |  ⭐⭐  |      |
+| 2   |  ⭐⭐  |  ⭐⭐  |
 | 3   |  ⭐⭐  |      |
 | 4   |  ⭐⭐  |      |
 | 5   |  ⭐⭐  |      |
