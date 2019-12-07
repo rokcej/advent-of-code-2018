@@ -10,7 +10,7 @@ My solutions for [Advent of Code](https://adventofcode.com/). Merry Christmas!
 | 4   |  ⭐⭐  |  ⭐⭐  |
 | 5   |  ⭐⭐  |  ⭐⭐  |
 | 6   |  ⭐⭐  |  ⭐⭐  |
-| 7   |  ⭐⭐  |      |
+| 7   |  ⭐⭐  |  ⭐⭐  |
 | 8   |  ⭐⭐  |      |
 | 9   |  ⭐⭐  |      |
 | 10  |  ⭐⭐  |      |
