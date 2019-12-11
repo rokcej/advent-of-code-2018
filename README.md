@@ -37,7 +37,7 @@ Coming soon...
 ## 2018
 
 I decided to use C for this one. Having to write data structures from scratch was quite a pain, so I doubt I'll be using it for Advent of Code again.
-Nevertheless, I enjoyed the puzzles a lot. I was studying abroad back then and wasn't having the best time, so this gave me something to look forward to every day, and a new way of celebrating my favourite holiday.
+Nevertheless, I enjoyed the puzzles a lot. They gave me something to look forward to every day, and a new way of celebrating Christmas.
 
 * Compile solutions with:
 	```bash
