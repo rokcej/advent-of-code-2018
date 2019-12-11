@@ -14,7 +14,7 @@ My solutions for [Advent of Code](https://adventofcode.com/). Merry Christmas!
 | 8   |  ⭐⭐  |  ⭐⭐  |
 | 9   |  ⭐⭐  |  ⭐⭐  |
 | 10  |  ⭐⭐  |  ⭐⭐  |
-| 11  |  ⭐⭐  |      |
+| 11  |  ⭐⭐  |  ⭐⭐  |
 | 12  |  ⭐⭐  |      |
 | 13  |  ⭐⭐  |      |
 | 14  |  ⭐⭐  |      |
