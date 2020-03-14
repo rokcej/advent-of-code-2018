@@ -32,7 +32,19 @@ My solutions for [Advent of Code](https://adventofcode.com/). Merry Christmas!
 
 ## 2019
 
-Coming soon...
+Written in C++. Didn't finish all the puzzles because I was busy.
+
+* Compile solutions with:
+	```bash
+	g++ part1.cpp -o part1
+	g++ part2.cpp -o part2
+	```
+* Run solutions with:
+	```bash
+	./part1 < input
+	./part2 < input
+	```
+
 
 ## 2018
 
