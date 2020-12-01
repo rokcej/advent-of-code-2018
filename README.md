@@ -1,6 +1,7 @@
 # Advent of Code 🎄
 My solutions for [Advent of Code](https://adventofcode.com/). Merry Christmas!
 
+
 ## Progress
 | Day | 2018 | 2019 | 2020 |
 |:---:|:----:|:----:|:----:|
@@ -29,6 +30,23 @@ My solutions for [Advent of Code](https://adventofcode.com/). Merry Christmas!
 | 23  |  ⭐⭐  |      |      |
 | 24  |  ⭐⭐  |      |      |
 | 25  |  ⭐⭐  |      |      |
+
+
+## 2020
+
+Written in C++.
+
+* Compile solutions with:
+	```bash
+	g++ part1.cpp -o part1
+	g++ part2.cpp -o part2
+	```
+* Run solutions with:
+	```bash
+	./part1 < input
+	./part2 < input
+	```
+
 
 ## 2019
 
