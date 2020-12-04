@@ -2,8 +2,11 @@
 #include <string>
 #include <sstream>
 #include <unordered_set>
+// #include <regex>
 
 bool isNumber(const std::string &s) {
+	// return std::regex_match(s, std::regex("[0-9]+"));
+
 	if (s.empty())
 		return false;
 	for (char c : s)
@@ -65,6 +68,9 @@ int main() {
 						}
 					}
 				} else if (key.compare("hcl") == 0) {
+					// if (std::regex_match(value, std::regex("#[0-9a-f]{6}")))
+					// 	valid = true;
+
 					if (value.length() == 7 && value[0] == '#') {
 						valid = true;
 						for (int i = 1; i < 7; ++i) {
