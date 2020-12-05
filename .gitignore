@@ -1,2 +1,6 @@
-*.exe
+# Binary files
+part?.exe
+part?
+
+# IDE directories
 .vscode/
