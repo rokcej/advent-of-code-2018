@@ -9,7 +9,7 @@ int main() {
 	for (int i = 0; i < vals.size(); ++i) {
 		for (int j = i + 1; j < vals.size(); ++j) {
 			if (vals[i] + vals[j] == 2020) {
-				std::cout << vals[i] * vals[j];
+				std::cout << vals[i] * vals[j] << std::endl;
 				return 0;
 			}
 		}
