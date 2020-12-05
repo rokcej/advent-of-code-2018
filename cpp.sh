@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Script for managing C++ Advent of Code solutions
+# run - Compile and run solutions
+# setup - Generate solution template and download input
+
 # Default values
 
 session="" 		# Login session cookie
@@ -92,15 +96,6 @@ function setup {
 
 # Script
 
-# Read session cookie
-if [ -z "$session"]; then
-	if [ ! -f "./.session" ]; then
-		echo "Error: Please create a .session file containing your login session cookie (no newline)"
-		exit 1
-	fi
-	session="$(<./.session)"
-fi
-
 # Parse options
 while getopts ":y:d:" opt; do
 	case "$opt" in
@@ -150,6 +145,14 @@ subcommand="$1"
 shift
 case "$subcommand" in
 	setup)
+		# Read session cookie
+		if [ -z "$session"]; then
+			if [ ! -f "./.session" ]; then
+				echo "Error: Please create a .session file containing your login session cookie (no newline)"
+				exit 1
+			fi
+			session="$(<./.session)"
+		fi
 		setup $year $day $session
 		;;
 	run)
