@@ -2,7 +2,7 @@
 #include <string>
 
 int main() {
-	int questions['z' - 'a'] = { 0 };
+	int questions['z' - 'a' + 1] = { 0 };
 	int result = 0;
 	int group = 1;
 	
