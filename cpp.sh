@@ -101,7 +101,7 @@ while getopts ":y:d:" opt; do
 	case "$opt" in
 	y)
 		year="$OPTARG"
-		if ! [ "$year" -ge 2015 ]; then
+		if ! ( [ "$year" -ge 2015 ] && [ "$year" -le 2099 ] ); then
 			echo "Invalid -$opt argument: Wrong year number $year" >&2
 			help
 			exit 1
