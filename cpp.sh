@@ -40,7 +40,7 @@ function run {
 	echo ""
 
 	if $(g++ "$dir/$file.cpp" -o "$dir/$file"); then
-		"$dir/$file" < "$dir/input"
+		time "$dir/$file" < "$dir/input"
 	else
 		echo "Error compiling $dir/$file.cpp"
 	fi
@@ -73,6 +73,7 @@ function setup {
 				echo "Error: Unable to create $dir/part$i.cpp"
 				exit 1
 			fi
+			echo -e -n "#include <iostream>\n\nint main() {\n\t\n\n\treturn 0;\n}\n" >> "$dir/part$i.cpp"
 			echo "Done"
 		else
 			echo "Already exists"
@@ -95,6 +96,12 @@ function setup {
 
 
 # Script
+
+# Print usage
+if [ $# -lt 1 ]; then
+	help
+	exit 1
+fi
 
 # Parse options
 while getopts ":y:d:" opt; do
