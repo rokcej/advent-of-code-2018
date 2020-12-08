@@ -91,7 +91,7 @@ function setup {
 		echo "Already exists"
 	fi
 
-	echo "Setup for year $year, day $day complete"
+	echo "Setup for day $day of year $year complete"
 }
 
 
@@ -171,6 +171,7 @@ case "$subcommand" in
 			shift
 			if ! ( [ "$part" -eq 1 ] || [ "$part" -eq 2 ] ); then
 				echo "Invalid $subcommand argument: Wrong part number $part" >&2
+				exit 1
 			fi
 			run $year $day $part
 		fi
