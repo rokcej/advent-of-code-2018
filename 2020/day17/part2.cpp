@@ -1,78 +1,71 @@
 #include <iostream>
 #include <string>
-#include <vector>
 #include <array>
-#include <algorithm>
+#include <unordered_set>
+#include <unordered_map>
+#include <functional>
 
-constexpr int STEPS = 6;
-constexpr int X = 20, Y = 20, Z = 13, W = 13; // initial_size + 2 * steps
+// 4D point object
+struct Point {
+	int x, y, z, w;
+	Point(int x, int y, int z, int w) : x{x}, y{y}, z{z}, w{w} {}
 
-// 4D memory indexing
-inline int I(const int& x, const int& y, const int& z, const int& w) {
-	return ((w * Z + z) * Y + y) * X + x;
-}
+	// Functions required for unordered_map and _set
+	bool operator ==(const Point& p) const {
+        return x == p.x && y == p.y && z == p.z && w == p.w;
+    }
+	struct Hash {
+		size_t operator()(const Point& p) const { 
+			// Encode coordinates into 32 bits and hash the result
+			return std::hash<unsigned int>{}(
+				(((p.w & 255) << 8 | (p.z & 255)) << 8 | (p.y & 255)) << 8 | (p.x & 255)
+			);
+		}
+	};
+};
 
 int main() {
 	// Read input
-	std::vector<std::string> input;
-	for (std::string line; std::cin >> line;)
-		input.push_back(line);
-
-	// Init 4D map
-	std::vector<int> map(W * Z * Y * X, false);
-	std::vector<int> tmp(W * Z * Y * X, false);
-	for (int y = 0; y < input.size(); ++y) {
-		for (int x = 0; x < input[0].length(); ++x) {
-			if (input[y][x] == '#')
-				map[I(x + STEPS, y + STEPS, STEPS, STEPS)] = true;
+	std::unordered_set<Point, Point::Hash> alive;
+	int col = 0;
+	for (std::string line; std::cin >> line; ++col) {
+		for (int row = 0; row < line.length(); ++row) {
+			if (line[row] == '#')
+				alive.insert(Point(row, col, 0, 0));
 		}
+	}
+
+	// Generate list of offests for neighbors (permutations of -1, 0, 1)
+	std::array<std::array<int, 4>, 3*3*3*3 - 1> offs;
+	for (int n = 0, i = 0; n <= offs.size(); ++n) {
+		int x = n%3 - 1, y = n/3%3 - 1, z = n/3/3%3 - 1, w = n/3/3/3%3 - 1;
+		if (!(x == 0 && y == 0 && z == 0 && w == 0))
+			offs[i++] = { x, y, z, w };
 	}
 
 	// Run simulation
-	for (int step = 0; step < STEPS; ++step) {
-		// Loop over all coordinates
-		for (int w = 0; w < W; ++w) {
-			int w0 = std::max(w-1, 0), w1 = std::min(w+1, W-1);
-			for (int z = 0; z < Z; ++z) {
-				int z0 = std::max(z-1, 0), z1 = std::min(z+1, Z-1);
-				for (int y = 0; y < Y; ++y) {
-					int y0 = std::max(y-1, 0), y1 = std::min(y+1, Y-1);
-					for (int x = 0; x < X; ++x) {
-						int x0 = std::max(x-1, 0), x1 = std::min(x+1, X-1);
-						// Loop over all neighbors
-						int count = 0;
-						for (int wn = w0; wn <= w1; ++wn) {
-							for (int zn = z0; zn <= z1; ++zn) {
-								for (int yn = y0; yn <= y1; ++yn) {
-									for (int xn = x0; xn <= x1; ++xn) {
-										if (xn == x && yn == y && zn == z && wn == w)
-											continue;
-										if (map[I(xn, yn, zn, wn)]) {
-											if (++count > 3)
-												goto BREAK_NEIGHBOR_LOOP; // Last remaining use of goto in C++
-										}
-									}
-								}
-							}
-						}
-						BREAK_NEIGHBOR_LOOP:
-						int i = I(x, y, z, w);
-						tmp[i] = map[i] ? (count == 2 || count == 3) : (count == 3);
-					}
-				}
+	for (int step = 0; step < 6; ++step) {
+		std::unordered_map<Point, int, Point::Hash> counts;
+		std::unordered_set<Point, Point::Hash> temp;
+		// Increment neighbors
+		for (const Point& p : alive) {
+			for (const auto& off : offs)
+				counts[Point(p.x + off[0], p.y + off[1], p.z + off[2], p.w + off[3])] += 1;
+		}
+		// Determine living cells
+		for (const auto& count : counts) {
+			if (alive.find(count.first) == alive.end()) { // Dead
+				if (count.second == 3)
+					temp.insert(count.first);
+			} else { // Alive
+				if (count.second == 2 || count.second == 3)
+					temp.insert(count.first);
 			}
 		}
-		map.swap(tmp);
+		alive.swap(temp); // Update living cells
 	}
 
-	// Get result
-	int result = 0;
-	for (auto cube : map) {
-		if (cube)
-			++result;
-	}
-	
-	std::cout << result << std::endl;
+	std::cout << alive.size() << std::endl;
 
 	return 0;
 }
