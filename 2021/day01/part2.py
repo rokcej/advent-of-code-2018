@@ -1,4 +1,4 @@
-print([sum([sum(x[i-2:i+1])>sum(x[i-3:i]) for i in range(3,len(x))]) for x in [[int(l) for l in open("input").read().splitlines()]]][0])
+print([sum([sum(x[i-2:i+1])>sum(x[i-3:i]) for i in range(3,len(x))]) for x in [[int(l) for l in open("input")]]][0])
 
 # with open("input", "r") as f:
 #     lines = f.readlines()

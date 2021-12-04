@@ -1,4 +1,4 @@
-print([sum(map(lambda a,b:a>b,x[1:],x[:-1])) for x in [[int(l) for l in open("input").read().splitlines()]]][0])
+print([sum(map(lambda a,b:a>b,x[1:],x[:-1])) for x in [[int(l) for l in open("input")]]][0])
 
 # with open("input", "r") as f:
 #     lines = f.readlines()
