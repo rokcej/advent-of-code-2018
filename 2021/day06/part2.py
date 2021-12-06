@@ -1,6 +1,9 @@
 import numpy as np
 
-initial = np.loadtxt("input", dtype=np.uint64, delimiter=",")
+# initial = np.loadtxt("input", dtype=np.uint64, delimiter=",")
+with open("input") as f:
+	initial = np.array([int(x) for x in f.read().split(",")], dtype=np.uint64) # 20% faster than np.loadtxt
+
 initial_indices, initial_counts = np.unique(initial, return_counts=True)
 counts = np.zeros(9, dtype=np.uint64)
 counts[initial_indices] = initial_counts
