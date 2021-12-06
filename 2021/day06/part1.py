@@ -8,7 +8,7 @@ initial_indices, initial_counts = np.unique(initial, return_counts=True)
 counts = np.zeros(9, dtype=np.uint64)
 counts[initial_indices] = initial_counts
 
-for day in range(256):
+for day in range(80):
 	counts = np.roll(counts, -1)
 	counts[6] += counts[-1]
 
