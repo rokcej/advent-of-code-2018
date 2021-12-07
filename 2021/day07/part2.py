@@ -1,15 +1,17 @@
-with open("input") as f:
-	crabs = list(map(int, f.read().split(",")))
+print([min([sum([abs(c-x)*(abs(c-x)+1)//2 for c in cs]) for x in range(min(cs),max(cs)+1)]) for cs in [list(map(int, open("input").read().split(",")))]][0])
 
-def S(n): return n * (n+1) // 2
+# with open("input") as f:
+# 	crabs = list(map(int, f.read().split(",")))
 
-align_min = sum(map(S, crabs))
+# def S(n): return n * (n+1) // 2
 
-for x in range(min(crabs), max(crabs)+1):
-	align = 0
-	for crab in crabs:
-		align += S(abs(crab - x))
-	if align < align_min:
-		align_min = align
+# align_min = sum(map(S, crabs))
 
-print(align_min)
+# for x in range(min(crabs), max(crabs)+1):
+# 	align = 0
+# 	for crab in crabs:
+# 		align += S(abs(crab - x))
+# 	if align < align_min:
+# 		align_min = align
+
+# print(align_min)
