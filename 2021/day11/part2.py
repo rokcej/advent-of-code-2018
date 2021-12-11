@@ -22,5 +22,4 @@ while True:
 		break
 	octopi[octopi > 9] = 0
 	step += 1
-
 print(step)
