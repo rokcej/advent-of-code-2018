@@ -6,20 +6,18 @@ h, w = octopi.shape
 
 step = 1
 while True:
-	for y0 in range(h):
-		for x0 in range(w):
-			octopi[y0,x0] += 1
-			if octopi[y0,x0] != 10:
-				continue
-			bfs = [(y0,x0)]
-			while len(bfs) > 0:
-				y, x = bfs.pop()
-				for ny in range(max(y-1, 0), min(y+2, h)):
-					for nx in range(max(x-1, 0), min(x+2, w)):
-						if not (nx == x and ny == y):
-							octopi[ny,nx] += 1
-							if octopi[ny,nx] == 10:
-								bfs.append((ny,nx))
+	octopi += 1
+	bfs = list(zip(*np.where(octopi == 10)))
+	while len(bfs) > 0:
+		y, x = bfs.pop()
+		y0, y1 = max(y-1, 0), min(y+2, h)
+		x0, x1 = max(x-1, 0), min(x+2, w)
+		for ny in range(y0, y1):
+			for nx in range(x0, x1):
+				if not (nx == x and ny == y):
+					octopi[ny,nx] += 1
+					if octopi[ny,nx] == 10:
+						bfs.append((ny,nx))
 	if np.count_nonzero(octopi > 9) == octopi.size: # Faster than np.sum
 		break
 	octopi[octopi > 9] = 0
