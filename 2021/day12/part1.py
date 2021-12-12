@@ -1,5 +1,3 @@
-import numpy as np
-
 nodes = {}
 with open("input") as f:
 	for line in f.read().splitlines():
