@@ -6,12 +6,14 @@ with open("input") as f:
 xMin, xMax = min(bounds[0]), max(bounds[0])
 yMin, yMax = min(bounds[1]), max(bounds[1])
 
-# Arithmetic sum:
-# S = n * (n+1) / 2 = n * (a1 + an) / 2 = n * (2*a1 + (n-1)*d) / 2
-
-# n = (-1 + math.sqrt(1 + 8 * xMax)) // 2
+# Here's the main idea: movement on the y-axis is symmetrical.
+# If we start at `y = 0` with a vertical velocity y1, we will always reach `y = 0` again after `2*y1 + 1` steps.
+# This means that on the next step, we will reach `y = -y1 - 1`.
+# To maximize the height, we assume `yMin = -y1 - 1`, therefore `y1 = -yMin - 1`.
+# To calculate the maximum height, we use the arithmetic sum formula `Sn = n * (n+1) / 2`.
 
 # This solution doesn't cover all (theoretical) cases,
 # however, it seems to work for this puzzle :)
+
 y1 = -yMin - 1
 print(y1 * (y1 + 1) // 2)
