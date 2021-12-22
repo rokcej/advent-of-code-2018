@@ -10,7 +10,7 @@ for line in lines:
 	cuboid = [[int(c)+50 for c in d.split("=")[1].split("..")] for d in coords.split(",")]
 	steps.append((val, cuboid))
 
-reactor = np.zeros((100, 100, 100), dtype=np.int32)
+reactor = np.zeros((101, 101, 101), dtype=np.int32)
 for val, cuboid in steps:
 	valid = True
 	for i in range(3):
