@@ -1,6 +1,3 @@
-from os import stat
-
-
 with open("input") as f:
 	lines = f.read().splitlines()
 
