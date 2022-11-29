@@ -6,8 +6,8 @@
 
 # Default values
 
-language=""	# Programming language
-year="2021"			# Puzzle year
+language="python"	# Programming language
+year="2022"			# Puzzle year
 day=""				# Puzzle day
 
 # The login session cookie is required for downloading puzzle inputs
