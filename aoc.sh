@@ -22,7 +22,7 @@ function help {
 	echo -e "  $(basename $0) <options> <command>"
 	echo -e ""
 	echo -e "Options:"
-	echo -e "  -l [c++, python]        Select language"
+	echo -e "  -l [cpp, python]        Select language"
 	echo -e "  -y <2015..>             Select year"
 	echo -e "  -d <1..25>              Select day"
 	echo -e ""
@@ -46,7 +46,7 @@ function run {
 	echo ""
 
 	case "$language" in
-		c++|cpp)
+		cpp|c++)
 			if $(g++ "$dir/$file.cpp" -o "$dir/$file"); then
 				(cd "$dir" ; time "./$file" < "input")
 			else
@@ -76,7 +76,7 @@ function setup {
 	local extension=""
 	local content=""
 	case "$language" in
-		c++|cpp)
+		cpp|c++)
 			extension="cpp"
 			content="#include <iostream>\n\nint main() {\n\t\n\n\treturn 0;\n}\n"
 			;;
