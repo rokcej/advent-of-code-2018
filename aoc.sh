@@ -47,7 +47,7 @@ function run {
 
 	case "$language" in
 		cpp|c++)
-			if $(g++ "$dir/$file.cpp" -o "$dir/$file"); then
+			if $(g++ -O2 -o "$dir/$file" "$dir/$file.cpp"); then
 				(cd "$dir" ; time "./$file" < "input")
 			else
 				echo "Error compiling $dir/$file.cpp"
