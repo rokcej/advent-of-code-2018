@@ -131,7 +131,7 @@ function setup {
 		echo "Already exists"
 	fi
 
-	echo "Setup for day $day of year $year complete"
+	echo "Setup for $year day $day complete"
 }
 
 
