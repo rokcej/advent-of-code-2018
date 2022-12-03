@@ -10,6 +10,6 @@ for line in lines:
 	if ord(common) >= ord("a"):
 		priority_sum += ord(common) - ord("a") + 1
 	else:
-		priority_sum += ord(common) - ord("A") + ord("z") - ord("a") + 2
+		priority_sum += ord(common) - ord("A") + 27
 
 print(priority_sum)
