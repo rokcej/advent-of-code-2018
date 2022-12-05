@@ -10,9 +10,8 @@ for i in range(i_empty - 2, -1, -1):
 			stacks[j].append(crate)
 
 for line in lines[i_empty+1:]:
-	values = line.split(" ")
-	count, src, dst = int(values[1]), int(values[3]) - 1, int(values[5]) - 1
+	count, src, dst = [int(val) for val in line.split(" ")[1::2]]
 	for _ in range(count):
-		stacks[dst].append(stacks[src].pop())
+		stacks[dst-1].append(stacks[src-1].pop())
 
 print(''.join([stack[-1] for stack in stacks]))
