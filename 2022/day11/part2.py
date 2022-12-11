@@ -2,7 +2,7 @@ def gcd(a, b): # Greatest common divisor
 	return gcd(b, a % b) if bool(b) else a
 
 def lcm(a, b): # Least common multiple
-    return a // gcd(a, b) * b
+	return a // gcd(a, b) * b
 
 class Monkey:
 	def __init__(self, lines):
@@ -11,6 +11,7 @@ class Monkey:
 		self.div = int(lines[3][21:])   # Divisor
 		self.i1 = int(lines[4][29:])    # True index
 		self.i0 = int(lines[5][30:])    # False index
+		self.count = 0
 
 with open("input") as f:
 	lines = f.read().splitlines()
@@ -23,10 +24,9 @@ mod = 1
 for monkey in monkeys:
 	mod = lcm(mod, monkey.div)
 
-counts = { i: 0 for i in range(len(monkeys)) }
 for round in range(10000):
 	for i, monkey in enumerate(monkeys):
-		counts[i] += len(monkey.items)
+		monkey.count += len(monkey.items)
 		for worry in monkey.items:
 			operand = worry if (monkey.op[1] == "old") else int(monkey.op[1])
 			worry = (worry + operand) if (monkey.op[0] == "+") else (worry * operand)
@@ -34,5 +34,5 @@ for round in range(10000):
 			monkeys[monkey.i1 if (worry % monkey.div == 0) else monkey.i0].items.append(worry)
 		monkey.items.clear()
 
-first, second = sorted(counts.values(), reverse=True)[:2]
+first, second = sorted([m.count for m in monkeys], reverse=True)[:2]
 print(first * second)
