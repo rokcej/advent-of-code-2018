@@ -30,8 +30,8 @@ for (x0, y0), dist in sensors:
 	directions = [
 		((x0, y0+dist+1), (+1, -1)), # North -> East
 		((x0+dist+1, y0), (-1, -1)), # East  -> South
-	    ((x0, y0-dist-1), (-1, +1)), # South -> West
-	    ((x0-dist-1, y0), (+1, +1))  # West  -> North
+		((x0, y0-dist-1), (-1, +1)), # South -> West
+		((x0-dist-1, y0), (+1, +1))  # West  -> North
 	]
 	for (x, y), (dx, dy) in directions:
 		for _ in range(dist):
