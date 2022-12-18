@@ -41,5 +41,6 @@ for id in valves:
 				distances[id][id2_neighbor] = distances[id][id2] + 1
 				bfs.append(id2_neighbor)
 
-nonzero_valves = { id: v for id, v in valves.items() if v.flow > 0 } # Optimization
+# Ignore valves with no flow
+nonzero_valves = { id: v for id, v in valves.items() if v.flow > 0 }
 print(maximize_pressure("AA", nonzero_valves, distances, 30))

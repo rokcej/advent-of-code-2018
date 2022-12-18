@@ -1,5 +1,3 @@
-# Takes around 1 minute to compute
-
 from collections import deque
 
 class Valve:
@@ -8,21 +6,23 @@ class Valve:
 		self.tunnels = tunnels
 		self.open = False
 
-def maximize_pressure(id1, id2, wait1, wait2, valves, distances, minutes):
-	if wait1 > wait2:
-		return maximize_pressure(id2, id1, wait2, wait1, valves, distances, minutes)
+cache = {} # Memoization
+def maximize_pressure(id, valves, distances, minutes, bitmask):
+	if (id, minutes, bitmask) in cache:
+		return cache[(id, minutes, bitmask)]
 
 	pressure = 0
-	for id in valves:
-		duration = distances[id1][id] + 1
-		if not valves[id].open and valves[id].flow > 0 and duration < minutes:
-			if distances[id1][id] > wait2 + distances[id2][id]:
-				continue # Skip nodes that can be reached faster by the other agent
-			valves[id].open = True
-			released = (minutes - duration) * valves[id].flow
-			delta = min(duration, wait2)
-			pressure = max(pressure, maximize_pressure(id, id2, duration - delta, wait2 - delta, valves, distances, minutes - delta) + released)
-			valves[id].open = False
+	for i, id2 in enumerate(valves):
+		bit = (1 << i)
+		if not (bit & bitmask):
+			continue
+		cost = distances[id][id2] + 1
+		if not valves[id2].open and valves[id2].flow > 0 and cost < minutes:
+			valves[id2].open = True
+			extra = (minutes - cost) * valves[id2].flow
+			pressure = max(pressure, maximize_pressure(id2, valves, distances, minutes - cost, bitmask ^ bit) + extra)
+			valves[id2].open = False
+	cache[(id, minutes, bitmask)] = pressure
 	return pressure
 
 with open("input", "r") as f:
@@ -49,5 +49,14 @@ for id in valves:
 				distances[id][id2_neighbor] = distances[id][id2] + 1
 				bfs.append(id2_neighbor)
 
-nonzero_valves = { id: v for id, v in valves.items() if v.flow > 0 } # Optimization
-print(maximize_pressure("AA", "AA", 0, 0, nonzero_valves, distances, 26))
+# Ignore valves with no flow
+nonzero_valves = { id: v for id, v in valves.items() if v.flow > 0 }
+
+# Use a bitmask to specify which nodes can be visited
+pressure = 0
+ones = (1 << len(nonzero_valves)) - 1
+for bitmask in range(ones):
+	me = maximize_pressure("AA", nonzero_valves, distances, 26, bitmask)
+	elephant = maximize_pressure("AA", nonzero_valves, distances, 26, ones ^ bitmask)
+	pressure = max(pressure, me + elephant)
+print(pressure)
