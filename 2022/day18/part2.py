@@ -16,14 +16,14 @@ for pos in lava:
 	max_bound = tuple(max(mb, p+1) for mb, p in zip(max_bound, pos))
 
 outside = {min_bound} 
-bfs = [min_bound]
-while len(bfs) > 0:
-	x, y, z = bfs.pop()
+dfs = [min_bound]
+while len(dfs) > 0:
+	x, y, z = dfs.pop()
 	for neighbor in [(x-1,y,z), (x+1,y,z), (x,y-1,z), (x,y+1,z), (x,y,z-1), (x,y,z+1)]:
 		if is_within_bounds(neighbor, min_bound, max_bound):
 			if neighbor not in outside and neighbor not in lava:
 				outside.add(neighbor)
-				bfs.append(neighbor)
+				dfs.append(neighbor)
 
 count = 0
 for x, y, z in lava:
