@@ -31,7 +31,7 @@ class Operation(Expression):
 		elif op == "*": return a // b
 		else: return a * b
 
-	def eval_inv_second(self, a: int) -> int: # Solve for x: a = x op b
+	def eval_inv_second(self, a: int) -> int: # Solve for x: a = b op x
 		b, op = self.first.eval(), self.op
 		if op == "+": return a - b
 		elif op == "-": return b - a
