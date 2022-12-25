@@ -29,7 +29,7 @@ My solutions for [Advent of Code](https://adventofcode.com/). Merry Christmas!
 |  22 |  ⭐⭐  |      |  ⭐⭐  |  ⭐⭐  |  ⭐   |
 |  23 |  ⭐⭐  |      |  ⭐⭐  |  ⭐⭐  |  ⭐⭐  |
 |  24 |  ⭐⭐  |      |  ⭐⭐  |  ⭐⭐  |  ⭐⭐  |
-|  25 |  ⭐⭐  |      |  ⭐⭐  |  ⭐⭐  |      |
+|  25 |  ⭐⭐  |      |  ⭐⭐  |  ⭐⭐  |  ⭐   |
 
 
 ## 2022
