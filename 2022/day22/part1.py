@@ -1,3 +1,5 @@
+DIRS = [(0, +1), (+1, 0), (0, -1), (-1, 0)]
+
 def get_path(line: str) -> list:
 	path = []
 	i = 0
@@ -13,6 +15,13 @@ def get_path(line: str) -> list:
 			i = j
 	return path
 
+def wrap(val, min_val, max_val):
+	if val > max_val:
+		return min_val
+	if val < min_val:
+		return max_val
+	return val
+
 
 with open("input", "r") as f:
 	lines = f.read().splitlines()
@@ -21,13 +30,13 @@ i_empty = lines.index("")
 board = lines[:i_empty]
 path = get_path(lines[i_empty+1])
 
-y = 0
-x = board[0].find(".")
+y, x = 0, board[0].find(".")
 dir = 0
 
 h = len(board)
 w = max(len(row) for row in board)
 
+# Get index ranges for each row
 row_lims = []
 for r in range(h):
 	start = -1
@@ -37,6 +46,7 @@ for r in range(h):
 			break
 	row_lims.append((start, len(board[r]) - 1))
 
+# Get index ranges for each column
 col_lims = []
 for c in range(w):
 	start = 0
@@ -51,8 +61,8 @@ for c in range(w):
 			break
 	col_lims.append((start, stop))
 
-dirs = [(0, +1), (+1, 0), (0, -1), (-1, 0)]
 for element in path:
+	# Change direction
 	if element == "R":
 		dir = (dir + 1) % 4
 		continue
@@ -60,25 +70,18 @@ for element in path:
 		dir = (dir + 3) % 4
 		continue
 	
+	# Move
 	distance = element
 	for _ in range(distance):
-		dy, dx = dirs[dir]
+		dy, dx = DIRS[dir]
 		y2, x2 = y + dy, x + dx
-
 		if dy == 0:
-			if x2 > row_lims[y2][1]:
-				x2 = row_lims[y2][0]
-			elif x2 < row_lims[y2][0]:
-				x2 = row_lims[y2][1]
+			x2 = wrap(x2, *row_lims[y2])
 		else:
-			if y2 > col_lims[x2][1]:
-				y2 = col_lims[x2][0]
-			elif y2 < col_lims[x2][0]:
-				y2 = col_lims[x2][1]
+			y2 = wrap(y2, *col_lims[x2])
 
 		if board[y2][x2] == "#":
 			break
-
 		y, x = y2, x2
 
 print(1000 * (y + 1) + 4 * (x + 1) + dir)
