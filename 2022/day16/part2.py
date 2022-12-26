@@ -6,8 +6,7 @@ class Valve:
 		self.tunnels = tunnels
 		self.open = False
 
-cache = {} # Memoization
-def maximize_pressure(id, valves, distances, minutes, bitmask):
+def maximize_pressure(id, valves, distances, minutes, bitmask, cache):
 	if (id, minutes, bitmask) in cache:
 		return cache[(id, minutes, bitmask)]
 
@@ -20,7 +19,7 @@ def maximize_pressure(id, valves, distances, minutes, bitmask):
 		if not valves[id2].open and valves[id2].flow > 0 and cost < minutes:
 			valves[id2].open = True
 			extra = (minutes - cost) * valves[id2].flow
-			pressure = max(pressure, maximize_pressure(id2, valves, distances, minutes - cost, bitmask ^ bit) + extra)
+			pressure = max(pressure, maximize_pressure(id2, valves, distances, minutes - cost, bitmask ^ bit, cache) + extra)
 			valves[id2].open = False
 	cache[(id, minutes, bitmask)] = pressure
 	return pressure
@@ -55,8 +54,9 @@ nonzero_valves = { id: v for id, v in valves.items() if v.flow > 0 }
 # Use a bitmask to specify which nodes can be visited
 pressure = 0
 ones = (1 << len(nonzero_valves)) - 1
+cache = {} # Memoization
 for bitmask in range(ones):
-	me = maximize_pressure("AA", nonzero_valves, distances, 26, bitmask)
-	elephant = maximize_pressure("AA", nonzero_valves, distances, 26, ones ^ bitmask)
+	me = maximize_pressure("AA", nonzero_valves, distances, 26, bitmask, cache)
+	elephant = maximize_pressure("AA", nonzero_valves, distances, 26, ones ^ bitmask, cache)
 	pressure = max(pressure, me + elephant)
 print(pressure)
