@@ -1,3 +1,31 @@
+/*
++--------------------------------------+
+| Map of Santa's ship                  |
+| Do not pick up items marked with (X) |
++---=----------------------------------+
+                                                        Passages
+                                                        -mutex
+                                                            |
+                                                        Observatory             Holodeck
+                                                            |                   -loom
+                                                            |                      |
+Science lab ------- Security checkpoint --- Santa      Gift wrapping center --- Corridor            Hot chocolate fountain -------- Storage --------------- Navigation
+-dark matter            |                                   |                   -escape pod (X)     -giant electromagnet (X)        -infinite loop (X)      -photons (X)
+    |                   |                                   |                                                                                                   |
+    |                   |                                   |                                                                                                   |
+Hallway ----------- Engineering ----------------------- Hull breach------------ Kitchen-------------------------------------------------------------------- Arcade
+-sand                   |                                                       -semiconductor                                                              -ornament
+    |                   |
+    |               Crew quarters
+    |
+    |
+    |               Stables
+    |               -wreath
+    |                   |
+Sick bay ---------- Warp drive maintenance
+-molten lava (X)    -asterisk
+*/
+
 #include <iostream>
 #include <vector>
 #include <unordered_map>
