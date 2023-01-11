@@ -21,9 +21,9 @@ TEMPLATES = {
 	"cs": lambda year, day, part:
 		f"using System;\n" \
 		f"using System.IO;\n\n" \
-		f"namespace Day{day:02} {{ \n\n" \
-		f"	class Part{part} {{ \n\n" \
-		f"		public static void Main(string[] args) {{ \n" \
+		f"namespace Day{day:02} {{\n\n" \
+		f"	class Part{part} {{\n\n" \
+		f"		public static void Main(string[] args) {{\n" \
 		f"			// TODO \n" \
 		f"		}}\n\n" \
 		f"	}}\n\n" \
