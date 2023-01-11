@@ -102,7 +102,7 @@ def run(language, year, day, part):
 		compile = subprocess.run(get_compile_args(part), cwd=dir_path)
 		if compile.returncode != 0:
 			print()
-			print(f"Error: Unable to compile {dir_path}/part{part}.cpp")
+			print(f"Error: Unable to compile {dir_path}/part{part}.{language}")
 			print()
 			return
 
