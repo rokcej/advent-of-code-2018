@@ -4,6 +4,7 @@ part?
 
 # IDE directories
 .vscode/
+.vs/
 
 # Secrets
 .session
