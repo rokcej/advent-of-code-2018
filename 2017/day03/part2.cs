@@ -1,7 +1,3 @@
-using System;
-using System.IO;
-using System.Collections.Generic;
-
 namespace Day03;
 
 class Part2 {

@@ -1,6 +1,3 @@
-using System;
-using System.IO;
-
 namespace Day03;
 
 class Part1 {

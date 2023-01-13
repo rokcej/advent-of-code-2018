@@ -1,8 +1,3 @@
-using System;
-using System.IO;
-using System.Linq;
-using System.Collections.Generic;
-
 namespace Day02;
 
 class Part2 {
@@ -13,7 +8,7 @@ class Part2 {
 		int sum = 0;
 		foreach (string line in lines) {
 			List<string> words = line.Split('\t').ToList();
-			List<int> numbers = words.Select(word => int.Parse(word)).ToList();
+			List<int> numbers = words.Select(int.Parse).ToList();
 			sum += GetDivisionResult(numbers);
 		}
 		Console.WriteLine(sum);
