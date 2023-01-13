@@ -1,57 +1,72 @@
 # Script for managing Advent of Code solutions
 # Run the script with parameter -h to display more info
-# To add support for new languages, modify the TEMPLATES and COMMANDS variables
+# To add support for new languages, modify the get_template and get_commands functions
 
 import argparse
 from pathlib import Path
 import requests
 import subprocess
 import time
+import textwrap
 
-# Code templates
-TEMPLATES = {
-	# C++
-	"cpp": lambda year, day, part:
-		f"#include <iostream>\n\n" \
-		f"int main() {{\n" \
-		f"	// TODO\n\n" \
-		f"	return 0;\n" \
-		f"}}\n",
-	# C#
-	"cs": lambda year, day, part:
-		f"using System;\n" \
-		f"using System.IO;\n\n" \
-		f"namespace Day{day:02} {{\n\n" \
-		f"	class Part{part} {{\n\n" \
-		f"		public static void Main(string[] args) {{\n" \
-		f"			// TODO \n" \
-		f"		}}\n\n" \
-		f"	}}\n\n" \
-		f"}}\n",
-	# Python
-	"py": lambda year, day, part: "# TODO\n"
-}
+# Solution code templates
+def get_template(language, year, day, part):
+	match language:
+		case "cpp":
+			return textwrap.dedent(f"""\
+				#include <iostream>
+
+				int main() {{
+					// TODO
+
+					return 0;
+				}}
+				""")
+
+		case "cs":
+			return textwrap.dedent(f"""\
+				namespace Day{day:02};
+					
+				class Part{part} {{
+					
+					public static void Run() {{
+						// TODO
+					}}
+
+				}}
+				""")
+				
+		case "py":
+			return "# TODO\n"
+
+	assert False, f"Template not found for language {language}"
 
 # Commands for compiling and executing solutions
-COMMANDS = {
-	# C++
-	"cpp": (
-		lambda part: ["g++", "-std=c++17", "-O2", "-o", f"part{part}", f"part{part}.cpp"],
-		lambda part: [f"./part{part}"]
-	),
-	# C#
-	"cs": (
-		lambda part: ["mcs", f"-out:part{part}", f"part{part}.cs"], # Linux only
-		lambda part: [f"./part{part}"]
-	),
-	# Python
-	"py": (
-		None, # No compilation
-		lambda part: ["python3", f"part{part}.py"] # Linux only
-	)
-}
+def get_commands(language, year, day, part):
+	match language:
+		case "cpp":
+			return {
+				"dir":     f"./{year}/day{day:02}",
+				"compile": ["g++", "-std=c++17", "-O2", "-o", f"part{part}", f"part{part}.cpp"],
+				"execute": [f"./part{part}"]
+			}
+		case "cs":
+			return {
+				"dir":     f"./{year}",
+				"compile": ["dotnet", "build", "-o", "./bin/build", "--nologo", "-v", "q", "-clp:NoSummary"],
+				"execute": ["dotnet", f"./bin/build/{year}.dll", f"{day}", f"{part}"]
+			}
+		case "py":
+			return {
+				"dir":     f"./{year}/day{day:02}",
+				"compile": None,
+				"execute": ["python", f"part{part}.py"]
+			}
+
+	assert False, f"Commands not found for language {language}"
 
 
+# Setup solution template and input
 def setup(language, year, day, session):
 	dir_path = Path(f"{year}/day{day:02}")
 
@@ -71,7 +86,7 @@ def setup(language, year, day, session):
 			print("Already exists")
 		else:
 			with file_path.open("w") as f:
-				f.write(TEMPLATES[language](year, day, part))
+				f.write(get_template(language, year, day, part))
 			print("Done")
 
 	# Download input
@@ -88,37 +103,39 @@ def setup(language, year, day, session):
 		else:
 			print(f"Error {response.status_code}: {response.reason}")
 
-
+# Compile and execute solution
 def run(language, year, day, part):
 	print(f"================")
 	print(f"==== Part {part} ====")
 	print(f"================\n")
 
-	dir_path = Path(f"{year}/day{day:02}")
-	get_compile_args, get_execute_args = COMMANDS[language]
+	commands = get_commands(language, year, day, part)
 
 	# Compile
-	if get_compile_args is not None:
-		compile = subprocess.run(get_compile_args(part), cwd=dir_path)
+	if commands["compile"] is not None:
+		try:
+			compile = subprocess.run(commands["compile"], cwd=commands["dir"])
+		except FileNotFoundError:
+			print(f"Error: Compiler '{commands['compile'][0]}' not found\n")
+			return
 		if compile.returncode != 0:
-			print()
-			print(f"Error: Unable to compile {dir_path}/part{part}.{language}")
-			print()
+			print(f"\nError: Unable to compile '{year}/day{day:02}/part{part}.{language}'\n")
 			return
 
 	# Execute
-	with open(dir_path / "input", "r") as f:
+	with open(f"{year}/day{day:02}/input", "r") as f:
 		time_start = time.time()
-		execute = subprocess.run(get_execute_args(part), stdin=f.fileno(), cwd=dir_path, text=True)
-		duration = time.time() - time_start	
-	print()
-	print(f"Time: {duration:.3f}s")
+		try:
+			execute = subprocess.run(commands["execute"], stdin=f.fileno(), cwd=commands["dir"], text=True)
+		except FileNotFoundError:
+			print(f"Error: Executable '{commands['execute'][0]}' not found\n")
+			return
+		duration = time.time() - time_start
+	print(f"\nTime: {duration:.3f}s\n")
 	if execute.returncode != 0:
-		print()
-		print(f"Error: Exited with return code {execute.returncode}")
-	print()
+		print(f"Error: Exited with return code {execute.returncode}\n")
 
-
+# Parse command line arguments
 def main():
 	parser = argparse.ArgumentParser(description="Advent of Code solution manager")
 	parser.add_argument("-l", required=True, type=str, choices=["cpp", "cs", "py"], help="select language")
@@ -131,7 +148,7 @@ def main():
 	match args.command:
 		case "setup":
 			if not Path(".session").is_file():
-				print("Error: Please create a \".session\" file containing your login session cookie")
+				print("Error: Please create a '.session' file containing your login session cookie")
 				return
 			with open(".session", "r") as f:
 				session = f.read().strip()
