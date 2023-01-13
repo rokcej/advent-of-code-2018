@@ -15,15 +15,15 @@ class Part1 {
 	}
 
 	public static bool IsValid(string passphrase) {
-        string[] words = passphrase.Split(' ');
-        HashSet<string> set = new HashSet<string>();
-        foreach (string word in words) {
-            if (set.Contains(word)) {
+		string[] words = passphrase.Split(' ');
+		HashSet<string> set = new HashSet<string>();
+		foreach (string word in words) {
+			if (set.Contains(word)) {
 				return false;
-            }
-            set.Add(word);
-        }
+			}
+			set.Add(word);
+		}
 		return true;
-    }
+	}
 
 }
