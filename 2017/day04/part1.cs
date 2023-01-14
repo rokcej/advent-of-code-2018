@@ -14,7 +14,7 @@ class Part1 {
 		Console.WriteLine(num_valid);
 	}
 
-	public static bool IsValid(string passphrase) {
+	private static bool IsValid(string passphrase) {
 		string[] words = passphrase.Split(' ');
 		HashSet<string> set = new HashSet<string>();
 		foreach (string word in words) {

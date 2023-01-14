@@ -14,7 +14,7 @@ class Part2 {
 		Console.WriteLine(num_valid);
 	}
 
-	public static bool IsValid(string passphrase) {
+	private static bool IsValid(string passphrase) {
 		List<string> canonical_words = passphrase.Split(' ').Select(Canonicalize).ToList();
 		HashSet<string> set = new HashSet<string>();
 		foreach (string word in canonical_words) {
@@ -26,7 +26,7 @@ class Part2 {
 		return true;
 	}
 
-	public static string Canonicalize(string word) {
+	private static string Canonicalize(string word) {
 		char[] characters = word.ToCharArray();
 		Array.Sort(characters);
 		return new string(characters);
