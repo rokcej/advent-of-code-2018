@@ -139,7 +139,7 @@ def run(language, year, day, part):
 def main():
 	parser = argparse.ArgumentParser(description="Advent of Code solution manager")
 	parser.add_argument("-l", required=True, type=str, choices=["cpp", "cs", "py"], help="select language")
-	parser.add_argument("-y", required=True, type=int, choices=range(2015, 2023), metavar="{2015,...}", help="select year")
+	parser.add_argument("-y", required=True, type=int, choices=range(2015, 2100), metavar="{2015,...}", help="select year")
 	parser.add_argument("-d", required=True, type=int, choices=range(1, 26), metavar="{1,...,25}", help="select day")
 	parser.add_argument("command", type=str, choices=["setup", "run"], help="setup directory or run solution(s)")
 	parser.add_argument("part", type=int, choices=[1, 2], nargs="?", help="(optional) choose solution part")
