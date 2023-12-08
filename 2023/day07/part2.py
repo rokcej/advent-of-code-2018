@@ -8,11 +8,13 @@ with open("input") as f:
 hands = []
 for line in lines:
 	hand, bid_str = line.split()
+	# Find ideal hand by transforming jokers
 	card_counts = Counter(hand)
-	joker_count = card_counts["J"]
-	card_counts["J"] = 0
-	primary_value = sorted(card_counts.values(), reverse=True)
-	primary_value[0] += joker_count
+	ideal_counts = Counter(filter(lambda card: card != "J", hand))
+	best_card = max(ideal_counts, key=ideal_counts.get) if ideal_counts else CARD_ORDER[-1]
+	ideal_counts[best_card] += card_counts["J"]
+	# Use ideal hand for primary ordering
+	primary_value = sorted(ideal_counts.values(), reverse=True)
 	secondary_value = [CARD_ORDER.index(card) for card in hand]
 	hands.append((hand, int(bid_str), (primary_value, secondary_value)))
 
