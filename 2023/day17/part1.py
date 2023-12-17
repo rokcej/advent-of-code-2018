@@ -1,4 +1,4 @@
-from queue import PriorityQueue
+import heapq
 
 MAX_FORWARD_STEPS = 3
 
@@ -22,13 +22,13 @@ width, height = len(grid[0]), len(grid)
 start_position = (0, 0)
 end_position = (width - 1, height - 1)
 
-search = PriorityQueue()
-search.put_nowait((0, Crucible(start_position, (+1, 0), 0)))
-search.put_nowait((0, Crucible(start_position, (0, +1), 0)))
+search = list()
+heapq.heappush(search, (0, Crucible(start_position, (+1, 0), 0)))
+heapq.heappush(search, (0, Crucible(start_position, (0, +1), 0)))
 visited = set()
 
-while not search.empty():
-	heat_loss, crucible = search.get_nowait()
+while len(search) > 0:
+	heat_loss, crucible = heapq.heappop(search)
 	if crucible.position == end_position:
 		print(heat_loss)
 		break
@@ -50,6 +50,6 @@ while not search.empty():
 	for candidate in candidates:
 		x2, y2 = candidate.position
 		if 0 <= x2 < width and 0 <= y2 < height:
-			search.put_nowait((heat_loss + grid[y2][x2], candidate))
+			heapq.heappush(search, (heat_loss + grid[y2][x2], candidate))
 else:	
 	raise Exception("Unable to find solution")
