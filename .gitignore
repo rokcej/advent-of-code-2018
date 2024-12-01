@@ -1,6 +1,7 @@
 # Binary files
 part?.exe
 part?
+part?.pdb
 
 # IDE directories
 .vscode/

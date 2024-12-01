@@ -38,6 +38,13 @@ def get_template(language, year, day, part):
 				
 		case "py":
 			return "# TODO\n"
+		
+		case "rs":
+			return textwrap.dedent(f"""\
+				fn main() {{
+					// TODO
+				}}
+				""")
 
 	assert False, f"Template not found for language {language}"
 
@@ -61,6 +68,12 @@ def get_commands(language, year, day, part):
 				"dir":     f"./{year}/day{day:02}",
 				"compile": None,
 				"execute": ["python", f"part{part}.py"]
+			}
+		case "rs":
+			return {
+				"dir":     f"./{year}/day{day:02}",
+				"compile": ["rustc", "-o", f"part{part}", f"part{part}.rs"],
+				"execute": [f"./part{part}"]
 			}
 
 	assert False, f"Commands not found for language {language}"
@@ -138,7 +151,7 @@ def run(language, year, day, part):
 # Parse command line arguments
 def main():
 	parser = argparse.ArgumentParser(description="Advent of Code solution manager")
-	parser.add_argument("-l", required=True, type=str, choices=["cpp", "cs", "py"], help="select language")
+	parser.add_argument("-l", required=True, type=str, choices=["cpp", "cs", "py", "rs"], help="select language")
 	parser.add_argument("-y", required=True, type=int, choices=range(2015, 2100), metavar="{2015,...}", help="select year")
 	parser.add_argument("-d", required=True, type=int, choices=range(1, 26), metavar="{1,...,25}", help="select day")
 	parser.add_argument("command", type=str, choices=["setup", "run"], help="setup directory or run solution(s)")
