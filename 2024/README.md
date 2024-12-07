@@ -4,7 +4,7 @@ Written in Rust. 🦀
 
 * Compile and run solutions with:
 	```bash
-	# Replace day01 with day01..day25
-	cargo run --release --bin day01_part1
-	cargo run --release --bin day01_part2
+	# Usage: cargo run -r --bin dayXX_partY
+	cargo run -r --bin day01_part1
+	cargo run -r --bin day01_part2
 	```
