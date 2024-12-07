@@ -71,9 +71,9 @@ def get_commands(language, year, day, part):
 			}
 		case "rs":
 			return {
-				"dir":     f"./{year}/day{day:02}",
-				"compile": ["rustc", "-o", f"part{part}", f"part{part}.rs"],
-				"execute": [f"./part{part}"]
+				"dir":     f"./{year}",
+				"compile": ["cargo", "build", "--release", "--bin", f"day{day:02}_part{part}"],
+				"execute": [f"./target/release/day{day:02}_part{part}"]
 			}
 
 	assert False, f"Commands not found for language {language}"
