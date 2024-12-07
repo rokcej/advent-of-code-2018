@@ -1,3 +1,2 @@
-# Rust junk
+# Rust build files
 target/
-Cargo.*
