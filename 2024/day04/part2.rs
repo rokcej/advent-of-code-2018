@@ -24,7 +24,10 @@ fn main() {
                 .map(|k| lines[i + k].chars().nth(j + pattern.len() - 1 - k).unwrap())
                 .collect();
 
-            if [diagonal, diagonal2].into_iter().all(|s| s.eq(&pattern) || s.eq(&pattern_rev)) {
+            if [diagonal, diagonal2]
+                .into_iter()
+                .all(|s| s.eq(&pattern) || s.eq(&pattern_rev))
+            {
                 count += 1;
             }
         }

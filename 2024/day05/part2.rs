@@ -10,8 +10,16 @@ fn read_lines() -> Vec<String> {
         .collect();
 }
 
-fn get_invalid_indices(pages: &Vec<i32>, ordering: &HashMap<i32, Vec<i32>>) -> Option<(usize, usize)> {
-    let indices: HashMap<i32, usize> = pages.iter().cloned().enumerate().map(|(i, p)| (p, i)).collect();
+fn get_invalid_indices(
+    pages: &Vec<i32>,
+    ordering: &HashMap<i32, Vec<i32>>,
+) -> Option<(usize, usize)> {
+    let indices: HashMap<i32, usize> = pages
+        .iter()
+        .cloned()
+        .enumerate()
+        .map(|(i, p)| (p, i))
+        .collect();
 
     for (index, page) in pages.iter().enumerate() {
         for later_page in ordering[page].iter() {
@@ -36,22 +44,25 @@ fn main() {
     let mut ordering: HashMap<i32, Vec<i32>> = HashMap::new();
     for line in ordering_lines {
         let pages: Vec<i32> = line.split('|').map(|s| s.parse().unwrap()).collect();
-        ordering.entry(pages[0]).or_insert(Vec::new()).push(pages[1]);
+        ordering
+            .entry(pages[0])
+            .or_insert(Vec::new())
+            .push(pages[1]);
     }
 
     let mut result: i32 = 0;
     for line in update_lines {
         let mut pages: Vec<i32> = line.split(',').map(|s| s.parse().unwrap()).collect();
 
-		let mut was_valid = true;
+        let mut was_valid = true;
         while let Some((i, j)) = get_invalid_indices(&pages, &ordering) {
             pages.swap(i, j);
-			was_valid = false;
+            was_valid = false;
         }
 
-		if !was_valid {
-        	result += pages[pages.len() / 2];
-		}
+        if !was_valid {
+            result += pages[pages.len() / 2];
+        }
     }
 
     println!("{result}");

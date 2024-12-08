@@ -11,7 +11,12 @@ fn read_lines() -> Vec<String> {
 }
 
 fn is_valid_update(pages: &Vec<i32>, ordering: &HashMap<i32, Vec<i32>>) -> bool {
-    let indices: HashMap<i32, usize> = pages.iter().cloned().enumerate().map(|(i, p)| (p, i)).collect();
+    let indices: HashMap<i32, usize> = pages
+        .iter()
+        .cloned()
+        .enumerate()
+        .map(|(i, p)| (p, i))
+        .collect();
 
     for (index, page) in pages.iter().enumerate() {
         for later_page in ordering[page].iter() {
@@ -36,7 +41,10 @@ fn main() {
     let mut ordering: HashMap<i32, Vec<i32>> = HashMap::new();
     for line in ordering_lines {
         let pages: Vec<i32> = line.split('|').map(|s| s.parse().unwrap()).collect();
-        ordering.entry(pages[0]).or_insert(Vec::new()).push(pages[1]);
+        ordering
+            .entry(pages[0])
+            .or_insert(Vec::new())
+            .push(pages[1]);
     }
 
     let mut result: i32 = 0;

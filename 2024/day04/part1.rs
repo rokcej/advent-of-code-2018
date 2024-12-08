@@ -36,7 +36,12 @@ fn main() {
                 candidates.push(diagonal);
 
                 let diagonal2: String = (0..pattern.len())
-                    .map(|k| {lines[i + k].chars().nth(j + pattern.len() - 1 - k).unwrap_or('\0')})
+                    .map(|k| {
+                        lines[i + k]
+                            .chars()
+                            .nth(j + pattern.len() - 1 - k)
+                            .unwrap_or('\0')
+                    })
                     .collect();
                 candidates.push(diagonal2);
             }
