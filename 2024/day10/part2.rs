@@ -1,10 +1,10 @@
 use std::io::BufRead;
 
-fn read_lines() -> Vec<String> {
-    let file = std::fs::File::open("day10/input").expect("Error opening input");
+fn read_lines(path: &str) -> Vec<String> {
+    let file = std::fs::File::open(path).expect("Error opening input");
     return std::io::BufReader::new(file)
         .lines()
-        .map(|l| l.expect("Error reading line"))
+        .map(Result::unwrap)
         .collect();
 }
 
@@ -23,7 +23,7 @@ fn get_score(grid: &Vec<Vec<u8>>, (y, x): (usize, usize), depth: u8) -> u32 {
 }
 
 fn main() {
-    let grid: Vec<Vec<u8>> = read_lines()
+    let grid: Vec<Vec<u8>> = read_lines("day10/input")
         .into_iter()
         .map(|s| s.chars().map(|c| c.to_digit(10).unwrap() as u8).collect())
         .collect();
