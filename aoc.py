@@ -7,44 +7,18 @@ from pathlib import Path
 import requests
 import subprocess
 import time
-import textwrap
 
 # Solution code templates
 def get_template(language, year, day, part):
     match language:
         case "cpp":
-            return textwrap.dedent(f"""\
-                #include <iostream>
-
-                int main() {{
-                    // TODO
-
-                    return 0;
-                }}
-                """)
-
+            return f"int main() {{\n    // TODO\n    return 0;\n}}\n"
         case "cs":
-            return textwrap.dedent(f"""\
-                namespace Day{day:02};
-                    
-                class Part{part} {{
-                    
-                    public static void Run() {{
-                        // TODO
-                    }}
-
-                }}
-                """)
-                
+            return f"namespace Day{day:02};\n\nclass Part{part} {{\n\n    public static void Run() {{\n        // TODO\n    }}\n\n}}\n"
         case "py":
             return "# TODO\n"
-        
         case "rs":
-            return textwrap.dedent(f"""\
-                fn main() {{
-                    // TODO
-                }}
-                """)
+            return f"fn main() {{\n    // TODO\n}}\n"
 
     assert False, f"Template not found for language {language}"
 
