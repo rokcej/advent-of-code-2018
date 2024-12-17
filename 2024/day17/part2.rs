@@ -50,6 +50,6 @@ fn main() {
         std::mem::swap(&mut candidates, &mut new_candidates);
     }
 
-    let lowest_initial_a = candidates.iter().min().unwrap();
-    println!("{lowest_initial_a}");
+    let lowest_initial_reg_a = candidates.iter().min().unwrap();
+    println!("{lowest_initial_reg_a}");
 }
